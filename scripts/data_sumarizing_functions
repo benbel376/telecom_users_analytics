@@ -10,7 +10,7 @@ def get_top_n(df, colname, num, globalDict):
 
 def manByHandset(lis, dfname):
     """
-    a function that returns top three handsets from top three manifacturers
+    a function that returns top three handsets from top three manufacturers
     """
     for man in lis:
         query = 'SELECT "Handset Manufacturer", "Handset Type", count(*) as num_users \
@@ -20,3 +20,17 @@ def manByHandset(lis, dfname):
         order by num_users DESC \
         LIMIT 3'
         print(queryDf(query),'\n')
+
+
+def find_agg(df, group_columns, agg_columns, agg_metrics, new_columns):
+    """
+    a function that returns a new dataframe with aggregate values of specified columns.
+    """
+    new_column_dict ={}
+    agg_dict = {}
+    for i in range(len(agg_columns)):
+        new_column_dict[agg_columns[i]] = new_columns[i]
+        agg_dict[agg_columns[i]] = agg_metrics[i]
+
+    new_df = df.groupby(group_columns).agg(agg_dict).reset_index().rename(columns=new_column_dict)
+    return new_df

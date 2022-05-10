@@ -75,3 +75,13 @@ def summary_two(df, cols):
     df_sum["median"] = df2.median().to_frame().reset_index().iloc[:,1]
     df_sum["mode"] = df2.mode().iloc[:,1]
     return df_sum
+
+
+def summary_three(df, cols):
+    """
+    calculate dispersion measures
+    """
+    df2 = df[cols]
+    df_sum = df2.std().to_frame().reset_index().rename(columns={"index":"variables",0:"std"})
+    df_sum["var"] = df2.var().to_frame().reset_index().iloc[:,1]
+    return df_sum

@@ -73,7 +73,21 @@ def format_number(df, cols):
     for col in float_format_list:
         df[col] = df.apply(lambda row : f'{row[col]:,.2f}', axis = 1)
 
-
-    
     return df
 
+
+def byte_to_mb(df, cols, identifier):
+    """
+    converting byte to megabyte.
+    """
+    bytes_list = []
+    megabyte = 1*10e+5
+    
+    for i in range(cols.shape[0]):
+        if(identifier in cols.iloc[i,0]):
+            bytes_list.append(cols.iloc[i,0])
+    
+    for col in bytes_list:
+        df[col] = df[col]/megabyte
+        df.rename(columns={col:col.replace(identifier,'(MB)')}, inplace=True)
+    return df

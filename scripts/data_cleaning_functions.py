@@ -46,8 +46,16 @@ def fill_missing_by_median(df, cols):
 
 def fill_missing_forward(df, cols):
     """
-    fills missing values by value from next row.
+    fills missing values by value from next rows
     """
     for col in cols:
         df[col] = df[col].fillna(method='ffill')
+    return df
+
+def fill_missing_backward(df, cols):
+    """
+    fills missing values by value from previous rows
+    """
+    for col in cols:
+        df[col] = df[col].fillna(method='bfill')
     return df

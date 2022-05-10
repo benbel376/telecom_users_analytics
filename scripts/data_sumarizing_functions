@@ -6,3 +6,17 @@ def get_top_n(df, colname, num, globalDict):
     queryDf = lambda q: sqldf(q, globalDict)
     query = 'SELECT "'+colname+'", count(*) as user_count FROM '+df+' WHERE "'+colname+'" != "undefined" group by "'+colname+'" order by user_count DESC LIMIT '+str(num)
     return queryDf(query)
+
+
+def manByHandset(lis, dfname):
+    """
+    a function that returns top three handsets from top three manifacturers
+    """
+    for man in lis:
+        query = 'SELECT "Handset Manufacturer", "Handset Type", count(*) as num_users \
+        FROM '+dfname+'\
+        WHERE "Handset Manufacturer" = "'+man+'" \
+        group by "Handset Type" \
+        order by num_users DESC \
+        LIMIT 3'
+        print(queryDf(query),'\n')

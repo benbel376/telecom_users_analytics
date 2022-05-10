@@ -94,3 +94,14 @@ def bar_graph(df, cols, x_ax):
     plot_df = df[cols]
     plt.figure(figsize=(25, 12))
     sns.countplot(x= x_ax, data=plot_df)
+
+
+def bivariateAnalysis(df, col , cols, crosst=False):
+    """
+    scatter plot and cross tab drawer
+    """
+    for col2 in cols:
+        df_plot = df[[col2, col]]
+        sns.relplot(data=df_plot, aspect = 2.0)
+        if(crosst):
+            pd.crosstab(df[col2], df[col], margins=True)

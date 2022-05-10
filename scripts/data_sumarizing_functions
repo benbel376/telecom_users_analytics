@@ -34,3 +34,12 @@ def find_agg(df, group_columns, agg_columns, agg_metrics, new_columns):
 
     new_df = df.groupby(group_columns).agg(agg_dict).reset_index().rename(columns=new_column_dict)
     return new_df
+
+
+def combineColumns(df, col1, col2, new_name, rem=False):
+    """
+    combines two numerical variables and create new variable.
+    """
+    df[new_name] = df[col1]+df[col2]
+    if(rem):
+        df.drop([col1, col2], axis = 1, inplace = True)

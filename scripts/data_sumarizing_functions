@@ -85,3 +85,12 @@ def summary_three(df, cols):
     df_sum = df2.std().to_frame().reset_index().rename(columns={"index":"variables",0:"std"})
     df_sum["var"] = df2.var().to_frame().reset_index().iloc[:,1]
     return df_sum
+
+
+def bar_graph(df, cols, x_ax):
+    """
+    graphical univariate analysis function. bar chart.
+    """
+    plot_df = df[cols]
+    plt.figure(figsize=(25, 12))
+    sns.countplot(x= x_ax, data=plot_df)

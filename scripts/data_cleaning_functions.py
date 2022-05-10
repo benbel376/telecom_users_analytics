@@ -59,3 +59,21 @@ def fill_missing_backward(df, cols):
     for col in cols:
         df[col] = df[col].fillna(method='bfill')
     return df
+
+
+def format_number(df, cols):
+    """
+    format floating number variables
+    """
+    float_format_list = []
+
+    for i in range(cols.shape[0]):
+        if(cols.iloc[i,3] == "float64"):
+            float_format_list.append(cols.iloc[i,0])
+    for col in float_format_list:
+        df[col] = df.apply(lambda row : f'{row[col]:,.2f}', axis = 1)
+
+
+    
+    return df
+

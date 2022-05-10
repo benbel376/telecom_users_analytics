@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+from data_summarizing_functions import DataSummarizer;
+
 
 class DataCleaner:
     """
@@ -8,7 +10,30 @@ class DataCleaner:
     def __init__(self) -> None:
         pass 
 
-    def fill_missing_by_mode(df, cols):
+    def remove_cols(self, df, cols):
+        """
+        a functions that removes specified columns from dataframe
+        """
+        r_df = df.drop(cols, axis=1)
+
+        return r_df
+
+    def reduce_dim_missing(self, df,limit):
+        """
+        removes columns with number of missing values greater than the provided limit
+        """
+        summar = DataSummarizer()
+        temp = summar.summ_columns(df)
+        rem_lis = []
+        for i in range(temp.shape[0]):
+            if(temp.iloc[i,2] > limit):
+                rem_lis.append(temp.iloc[i,0])
+        r_df = df.drop(rem_lis, axis=1) 
+        
+        return r_df
+
+    
+    def fill_missing_by_mode(self, df, cols):
         """
         fills missing values by mode
         """

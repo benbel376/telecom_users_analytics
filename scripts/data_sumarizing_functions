@@ -1,0 +1,8 @@
+
+def get_top_n(df, colname, num, globalDict):
+    """
+    a function that groups a column and return the top n groups based on member count
+    """
+    queryDf = lambda q: sqldf(q, globalDict)
+    query = 'SELECT "'+colname+'", count(*) as user_count FROM '+df+' WHERE "'+colname+'" != "undefined" group by "'+colname+'" order by user_count DESC LIMIT '+str(num)
+    return queryDf(query)

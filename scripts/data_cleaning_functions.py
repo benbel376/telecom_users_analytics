@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from regex import D
 from data_summarizing_functions import DataSummarizer;
 
 
@@ -8,13 +9,16 @@ class DataCleaner:
     class that handles data cleaning.
     """
     def __init__(self) -> None:
-        pass 
+        self.summar = DataSummarizer() 
 
-    def remove_cols(self, df, cols):
+    def remove_cols(self, df, cols, keep=False):
         """
         a functions that removes specified columns from dataframe
         """
-        r_df = df.drop(cols, axis=1)
+        if(keep):
+            r_df = df.loc[:,cols]
+        else:
+            r_df = df.drop(cols, axis=1)
 
         return r_df
 
@@ -22,8 +26,7 @@ class DataCleaner:
         """
         removes columns with number of missing values greater than the provided limit
         """
-        summar = DataSummarizer()
-        temp = summar.summ_columns(df)
+        temp = self.summar.summ_columns(df)
         rem_lis = []
         for i in range(temp.shape[0]):
             if(temp.iloc[i,2] > limit):
@@ -33,14 +36,15 @@ class DataCleaner:
         return r_df
 
     
-    def fill_missing_by_mode(self, df, cols):
+    def fill_missing_by_mode(self, df):
         """
         fills missing values by mode
         """
+        temp = self.summar.summ_columns(df)
         mod_fill_list = []
-        for i in range(cols.shape[0]):
-            if(cols.iloc[i,3] == "object"):
-                mod_fill_list.append(cols.iloc[i,0])
+        for i in range(temp.shape[0]):
+            if(temp.iloc[i,3] == "object"):
+                mod_fill_list.append(temp.iloc[i,0])
                 
         for col in mod_fill_list:
             df[col] = df[col].fillna(df[col].mode()[0])

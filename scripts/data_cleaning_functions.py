@@ -1,8 +1,11 @@
 import pandas as pd
 import numpy as np
 
-#filling missing values of categorical variables with mode 
+ 
 def fill_missing_by_mode(df, cols):
+    """
+    fills missing values by mode
+    """
     mod_fill_list = []
     for i in range(cols.shape[0]):
         if(cols.iloc[i,3] == "object"):
@@ -14,6 +17,9 @@ def fill_missing_by_mode(df, cols):
 
 
 def fill_missing_by_mean(df, cols):
+    """
+    fills missing values by mean
+    """
     mean_fill_list = []
     for i in range(cols.shape[0]):
         if(cols.iloc[i,3] == "float64"):
@@ -24,6 +30,9 @@ def fill_missing_by_mean(df, cols):
     return df
 
 def fill_missing_by_median(df, cols):
+    """
+    fills missing values by median.
+    """
     median_fill_list = []
 
     for i in range(cols.shape[0]):
@@ -32,4 +41,13 @@ def fill_missing_by_median(df, cols):
             
     for col in median_fill_list:
         df[col] = df[col].fillna(df[col].median())
+    return df
+
+
+def fill_missing_forward(df, cols):
+    """
+    fills missing values by value from next row.
+    """
+    for col in cols:
+        df[col] = df[col].fillna(method='ffill')
     return df

@@ -22,3 +22,14 @@ def fill_missing_by_mean(df, cols):
     for col in mean_fill_list:
         df[col] = df[col].fillna(df[col].median())
     return df
+
+def fill_missing_by_median(df, cols):
+    median_fill_list = []
+
+    for i in range(cols.shape[0]):
+        if(cols.iloc[i,3] == "float64"):
+            median_fill_list.append(cols.iloc[i,0])
+            
+    for col in median_fill_list:
+        df[col] = df[col].fillna(df[col].median())
+    return df

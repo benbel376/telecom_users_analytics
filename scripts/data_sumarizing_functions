@@ -105,3 +105,19 @@ def bivariateAnalysis(df, col , cols, crosst=False):
         sns.relplot(data=df_plot, aspect = 2.0)
         if(crosst):
             pd.crosstab(df[col2], df[col], margins=True)
+
+
+def topDecile(df, group, cols, metric, name, top=5):
+    """
+    function that aggregates based on top n deciles.
+    """
+    aggr_n = find_agg(df, group, cols, metric, name)
+    aggr_n = aggr_n.loc[aggr_n['Decile'] < top+1]
+    return aggr_n
+
+def corrMatrix(df, cols):
+    """
+    a function that generates correlation matrix as a table.
+    """
+    relation = df[cols].corr()
+    return relation

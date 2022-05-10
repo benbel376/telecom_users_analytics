@@ -12,10 +12,13 @@ class DataSummarizer:
         pass
     
     
-    def sum_columns(df):
+    def sum_columns(self, df):
+        """
+        shows columns and their missing values along with data types.
+        """
         df2 = df.isna().sum().to_frame().reset_index()
-        df2.rename(columns = {'index':'variables', 0:'count'}, inplace = True)
-        df2['percent'] = round(df2['count']*100/df.shape[0])
+        df2.rename(columns = {'index':'variables', 0:'missing_count'}, inplace = True)
+        df2['missing_percent_(%)'] = round(df2['count']*100/df.shape[0])
         data_type_lis = df.dtypes.to_frame().reset_index()
         df2['data_type'] = data_type_lis.iloc[:,1]
         

@@ -12,6 +12,72 @@ class DataSummarizer:
         pass
     
     
+    def plot_box(self, df:pd.DataFrame, col:str)->None:
+        plt.boxplot(df[col])
+        plt.title(f'Plot of {col}', size=20, fontweight='bold')
+        ax = plt.gca()
+        #ax.set_ylim(top = df[col].quantile(0.9999))
+        #ax.set_ylim(bottom = 0)
+        # show plot
+        plt.show()
+
+    def plot_box2(self, df:pd.DataFrame, columns, color:str)->None:
+        """
+        Boxplot plotting function.
+        """
+        fig = plt.figure(figsize =(10, 7))
+        
+        for col in columns:
+            # Creating plot
+            plt.boxplot(df[col])
+            plt.title(f'Plot of {col}', size=20, fontweight='bold')
+            ax = plt.gca()
+            ax.set_ylim(top = df[col].quantile(0.9999))
+            ax.set_ylim(bottom = 0)
+            # show plot
+            plt.show()
+
+
+    def plot_pie(self, df, col, title):
+        """
+        pie chart plotting function.
+        """
+        # Wedge properties
+        wp = { 'linewidth' : 1, 'edgecolor' : "black" }
+
+        # Creating autocpt arguments
+        def func(pct, allvalues):
+            absolute = int(pct / 100.*np.sum(allvalues))
+            return "{:.1f}%\n({:d} g)".format(pct, absolute)
+        
+        fig, ax = plt.subplots(figsize =(10, 7))
+        wedges, texts, autotexts = ax.pie(df[col[1]],
+                                    autopct = lambda pct: func(pct, df[col[1]]),
+                                    labels = df[col[0]].to_list(),
+                                    startangle = 90,
+                                    wedgeprops = wp,)
+
+        plt.setp(autotexts, size = 8, weight ="bold")
+        ax.set_title(title)
+
+
+    def percent_missing(self, df):
+        """
+        this function calculates the total percentage of missin values in a dataset.
+        """
+        # Calculate total number of cells in dataframe
+        totalCells = np.product(df.shape)
+
+        # Count number of missing values per column
+        missingCount = df.isnull().sum()
+
+        # Calculate total number of missing values
+        totalMissing = missingCount.sum()
+
+        # Calculate percentage of missing values
+        print("The dataset contains", round(((totalMissing/totalCells) * 100), 2), "%", "missing values.")
+
+
     def summ_columns(self, df):
         """
         shows columns and their missing values along with data types.
@@ -89,10 +155,12 @@ class DataSummarizer:
         calculate range, max, count, and min.
         """
         df2 = df[cols]
-        
+        data_types_dict = {'max': float, 'min':float}
+  
         df_sum = df2.max().to_frame().reset_index().rename(columns={"index":"variables",0:"max"})
         df_sum["min"] = df2.min().to_frame().reset_index().iloc[:,1]
-        df_sum['range'] = pd.to_numeric(df_sum['max']) - pd.to_numeric(df_sum['min'])
+        df_sum= df_sum.astype(data_types_dict)
+        df_sum['range'] = df_sum['max'] - df_sum['min']
         df_sum["count"] = df2.count().to_frame().reset_index().iloc[:,1]
         return df_sum
 
@@ -138,10 +206,11 @@ class DataSummarizer:
                 pd.crosstab(df[col2], df[col], margins=True)
 
 
-    def topDecile(self, df, group, cols, metric, name, top=5):
+    def topDecile(self, df, group,deci, cols, metric, name, top=5):
         """
         function that aggregates based on top n deciles.
         """
+        df['Decile'] = pd.qcut(df['session_dur'], 10, labels=False)
         aggr_n = self.find_agg(df, group, cols, metric, name)
         aggr_n = aggr_n.loc[aggr_n['Decile'] < top+1]
         return aggr_n

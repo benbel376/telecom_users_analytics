@@ -11,12 +11,12 @@ class DataSummarizer:
     def __init__(self) -> None:
         pass
     
-    def showDistribution(df, cols, colors):
+    def showDistribution(self, df, cols, colors):
         """
         Distribution plotting function.
         """
         for index in range(len(cols)):
-            sns.displot(data=outlier_free_df, x=cols[index], color=colors[index], kde=True, height=4, aspect=2)
+            sns.displot(data=df, x=cols[index], color=colors[index], kde=True, height=4, aspect=2)
             plt.title(f'Distribution of '+cols[index]+' data volume', size=20, fontweight='bold')
             plt.show()
     def plot_box(self, df:pd.DataFrame, col:str)->None:

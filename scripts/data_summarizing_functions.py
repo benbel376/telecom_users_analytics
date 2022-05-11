@@ -12,13 +12,13 @@ class DataSummarizer:
         pass
     
     
-    def sum_columns(self, df):
+    def summ_columns(self, df):
         """
         shows columns and their missing values along with data types.
         """
         df2 = df.isna().sum().to_frame().reset_index()
         df2.rename(columns = {'index':'variables', 0:'missing_count'}, inplace = True)
-        df2['missing_percent_(%)'] = round(df2['count']*100/df.shape[0])
+        df2['missing_percent_(%)'] = round(df2['missing_count']*100/df.shape[0])
         data_type_lis = df.dtypes.to_frame().reset_index()
         df2['data_type'] = data_type_lis.iloc[:,1]
         
@@ -49,7 +49,7 @@ class DataSummarizer:
             WHERE "Handset Manufacturer" = "'+man+'" \
             group by "Handset Type" \
             order by num_users DESC \
-            LIMIT 3'
+            LIMIT 5'
             print(queryDf(query),'\n')
 
 
@@ -92,7 +92,7 @@ class DataSummarizer:
         
         df_sum = df2.max().to_frame().reset_index().rename(columns={"index":"variables",0:"max"})
         df_sum["min"] = df2.min().to_frame().reset_index().iloc[:,1]
-        df_sum['range'] = df_sum['max'] - df_sum['min']
+        df_sum['range'] = pd.to_numeric(df_sum['max']) - pd.to_numeric(df_sum['min'])
         df_sum["count"] = df2.count().to_frame().reset_index().iloc[:,1]
         return df_sum
 

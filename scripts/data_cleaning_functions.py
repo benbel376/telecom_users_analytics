@@ -36,50 +36,59 @@ class DataCleaner:
         return r_df
 
     
-    def fill_missing_by_mode(self, df):
+    def fill_missing_by_mode(self, df, cols=None):
         """
         fills missing values by mode
         """
-        temp = self.summar.summ_columns(df)
         mod_fill_list = []
-        for i in range(temp.shape[0]):
-            if(temp.iloc[i,3] == "object"):
-                mod_fill_list.append(temp.iloc[i,0])
-                
+        if(cols == None):
+            temp = self.summar.summ_columns(df)
+            for i in range(temp.shape[0]):
+                if(temp.iloc[i,3] == "object"):
+                    mod_fill_list.append(temp.iloc[i,0])
+        else:
+            for col in cols:
+                mod_fill_list.append(col)
+        
         for col in mod_fill_list:
             df[col] = df[col].fillna(df[col].mode()[0])
+        
         return df
 
 
-    def fill_missing_by_mean(df, cols):
+    def fill_missing_by_mean(self, df):
         """
         fills missing values by mean
         """
+        temp = self.summar.summ_columns(df)
         mean_fill_list = []
-        for i in range(cols.shape[0]):
-            if(cols.iloc[i,3] == "float64"):
-                mean_fill_list.append(cols.iloc[i,0])
+        
+        for i in range(temp.shape[0]):
+            if(temp.iloc[i,3] == "float64"):
+                mean_fill_list.append(temp.iloc[i,0])
         
         for col in mean_fill_list:
             df[col] = df[col].fillna(df[col].median())
+        
         return df
 
-    def fill_missing_by_median(df, cols):
+    def fill_missing_by_median(self, df):
         """
         fills missing values by median.
         """
+        temp = self.summar.summ_columns(df)
         median_fill_list = []
 
-        for i in range(cols.shape[0]):
-            if(cols.iloc[i,3] == "float64"):
-                median_fill_list.append(cols.iloc[i,0])
+        for i in range(temp.shape[0]):
+            if(temp.iloc[i,3] == "float64"):
+                median_fill_list.append(temp.iloc[i,0])
                 
         for col in median_fill_list:
             df[col] = df[col].fillna(df[col].median())
         return df
 
 
-    def fill_missing_forward(df, cols):
+    def fill_missing_forward(self, df, cols):
         """
         fills missing values by value from next rows
         """
@@ -87,7 +96,7 @@ class DataCleaner:
             df[col] = df[col].fillna(method='ffill')
         return df
 
-    def fill_missing_backward(df, cols):
+    def fill_missing_backward(self, df, cols):
         """
         fills missing values by value from previous rows
         """
@@ -96,31 +105,31 @@ class DataCleaner:
         return df
 
 
-    def format_number(df, cols):
+    def format_number(self, df, cols):
         """
         format floating number variables
         """
         float_format_list = []
 
-        for i in range(cols.shape[0]):
-            if(cols.iloc[i,3] == "float64"):
-                float_format_list.append(cols.iloc[i,0])
+        for col in cols:
+            float_format_list.append(col)
         for col in float_format_list:
             df[col] = df.apply(lambda row : f'{row[col]:,.2f}', axis = 1)
 
         return df
 
 
-    def byte_to_mb(df, cols, identifier):
+    def byte_to_mb(self, df, identifier):
         """
         converting byte to megabyte.
         """
         bytes_list = []
         megabyte = 1*10e+5
+        temp = self.summar.summ_columns(df)
         
-        for i in range(cols.shape[0]):
-            if(identifier in cols.iloc[i,0]):
-                bytes_list.append(cols.iloc[i,0])
+        for i in range(temp.shape[0]):
+            if(identifier in temp.iloc[i,0]):
+                bytes_list.append(temp.iloc[i,0])
         
         for col in bytes_list:
             df[col] = df[col]/megabyte

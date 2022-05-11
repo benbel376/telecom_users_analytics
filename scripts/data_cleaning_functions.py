@@ -11,6 +11,24 @@ class DataCleaner:
     def __init__(self) -> None:
         self.summar = DataSummarizer() 
 
+    def removeOutliers(self, df,cols):
+        for col in cols:
+            ''' Detection '''
+            # IQR
+            Q1 = df[col].quantile(0.25)
+
+            Q3 = df[col].quantile(0.75)
+            IQR = Q3 - Q1
+
+            # Upper bound
+            upper = np.where(df[col] >= (Q3+1.5*IQR))
+            # Lower bound
+            lower = np.where(df[col] <= (Q1-1.5*IQR))
+
+            ''' Removing the Outliers '''
+            df.drop(upper[0], inplace = True)
+            df.drop(lower[0], inplace = True)
+    
     def remove_cols(self, df, cols, keep=False):
         """
         a functions that removes specified columns from dataframe

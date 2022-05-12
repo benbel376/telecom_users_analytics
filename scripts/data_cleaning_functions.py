@@ -26,11 +26,6 @@ class DataCleaner:
                 if(df_temp.loc[index,col] >= (Q3+1.5*IQR)):
                     rm_lis.append(index)
 
-            # # Upper bound
-            # upper = np.where(df[col] >= (Q3+1.5*IQR))
-            # # Lower bound
-            # lower = np.where(df[col] <= (Q1-1.5*IQR))
-
             ''' Removing the Outliers '''
             df_temp.drop(rm_lis, inplace = True)
 
@@ -81,16 +76,20 @@ class DataCleaner:
         return df
 
 
-    def fill_missing_by_mean(self, df):
+    def fill_missing_by_mean(self, df, cols=None):
         """
         fills missing values by mean
         """
         temp = self.summar.summ_columns(df)
         mean_fill_list = []
         
-        for i in range(temp.shape[0]):
-            if(temp.iloc[i,3] == "float64"):
-                mean_fill_list.append(temp.iloc[i,0])
+        if cols is None:
+            for i in range(temp.shape[0]):
+                if(temp.iloc[i,3] == "float64"):
+                    mean_fill_list.append(temp.iloc[i,0])
+        else:
+            for col in cols:
+                mean_fill_list.append(col)
         
         for col in mean_fill_list:
             df[col] = df[col].fillna(df[col].median())

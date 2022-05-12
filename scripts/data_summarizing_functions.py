@@ -11,6 +11,19 @@ class DataSummarizer:
     def __init__(self) -> None:
         pass
     
+    
+    def show_N_per_col(self, df, main, cols, N, target="top"):
+        """
+        sorts a column and shows top 10 values.
+        """
+        asc = False
+        if(target == "bottom"):
+            asc = True
+        for col in cols:
+            print("\nTop 10 customers based on"+col+"\n")
+            print(df.sort_values(by=col, ascending=asc).loc[:,[main, col]].head(N))
+        
+    
     def bivariateAnalysis(self, df, cols, colors): 
         """
         it plots a scatter chart and runs correlation test
@@ -99,7 +112,7 @@ class DataSummarizer:
         print("The dataset contains", round(((totalMissing/totalCells) * 100), 2), "%", "missing values.")
 
 
-    def summ_columns(self, df):
+    def summ_columns(self, df, unique=True):
         """
         shows columns and their missing values along with data types.
         """
@@ -109,10 +122,11 @@ class DataSummarizer:
         data_type_lis = df.dtypes.to_frame().reset_index()
         df2['data_type'] = data_type_lis.iloc[:,1]
         
-        unique_val = []
-        for i in range(df2.shape[0]):
-            unique_val.append(len(pd.unique(df[df2.iloc[i,0]])))
-        df2['unique_values'] = pd.Series(unique_val)
+        if(unique):
+            unique_val = []
+            for i in range(df2.shape[0]):
+                unique_val.append(len(pd.unique(df[df2.iloc[i,0]])))
+            df2['unique_values'] = pd.Series(unique_val)
         return df2
 
 

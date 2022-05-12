@@ -217,13 +217,14 @@ class DataSummarizer:
 
 
 
-    def topDecile(self, df, group,deci, cols, metric, name, top=5):
+    def topDecile(self, df, group,deci, cols, metric, name, range):
         """
         function that aggregates based on top n deciles.
         """
         df['Decile'] = pd.qcut(df['session_dur'], 10, labels=False)
         aggr_n = self.find_agg(df, group, cols, metric, name)
-        aggr_n = aggr_n.loc[aggr_n['Decile'] < top+1]
+        aggr_n = aggr_n.loc[aggr_n['Decile'] < range[1]+1]
+        aggr_n = aggr_n.loc[aggr_n['Decile'] > range[0]-1]
         return aggr_n
 
 

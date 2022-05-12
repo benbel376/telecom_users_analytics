@@ -11,6 +11,17 @@ class DataSummarizer:
     def __init__(self) -> None:
         pass
     
+    def bivariateAnalysis(self, df, cols, colors): 
+        """
+        it plots a scatter chart and runs correlation test
+        """
+        for i in range(len(cols)):
+            plt.style.use('fivethirtyeight')
+            plt.figure(figsize=(8, 4)) 
+            sns.scatterplot(data = df, x=cols[i][0], y=cols[i][1], s=20, color=colors[i])
+            print(self.corrMatrix(df, cols[i]))
+
+
     def showDistribution(self, df, cols, colors):
         """
         Distribution plotting function.
@@ -204,16 +215,6 @@ class DataSummarizer:
         plt.figure(figsize=(25, 12))
         sns.countplot(x= x_ax, data=plot_df)
 
-
-    def bivariateAnalysis(self, df, col , cols, crosst=False):
-        """
-        scatter plot and cross tab drawer
-        """
-        for col2 in cols:
-            df_plot = df[[col2, col]]
-            sns.relplot(data=df_plot, aspect = 2.0)
-            if(crosst):
-                pd.crosstab(df[col2], df[col], margins=True)
 
 
     def topDecile(self, df, group,deci, cols, metric, name, top=5):

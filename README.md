@@ -2,24 +2,28 @@
 
 <h3> File and Folders </h3>
 <ul> 
-<li>**notebooks:** A folder that contains all the notebooks used to handle the specific objectives described below
+<li><b>notebooks:</b> A folder that contains all the notebooks used to handle the specific objectives described below
 <ul>
-    <li> **customers_overview.ipynb**: exploratory data analysis file.this file cleans the data and runs univariate and bivariate analysis on the data to see trends and relationships.</li>
+    <li> <b>customers_overview.ipynb</b>: exploratory data analysis file.this file cleans the data and runs univariate and bivariate analysis on the data to see trends and relationships.</li>
 </ul>
+</li>
 <li>
-<li>**scripts:** A folder that contains all python modules developed to handle data cleaning, processing, analyzing, and plotting tasks for this project
+<b>scripts:</b> A folder that contains all python modules developed to handle data cleaning, processing, analyzing, and plotting tasks for this project
 <ul>
     <li>
-        **data_cleaning_functions.py:** this script contains the DataCleaner class. The class contains a list of methods to handle data cleaning and transformation tasks on dataframes.
+        <b>data_cleaning_functions.py:</b> this script contains the DataCleaner class. The class contains a list of methods to handle data cleaning and transformation tasks on dataframes.
     </li>
     <li>
-        **data_summarizing_functions.py:** this script contains the DataSummarizer class. The class contains a list of methods to 
+        <b>data_summarizing_functions.py:</b> this script contains the DataSummarizer class. The class contains a list of methods to 
         plot charts and run various univariate and bivariate analysis.
     </li>
 </ul>
+</li>
 <li>
+    <b>tests:</b> this folder contains a list of functions to test the scripts 
+</li>
 
-<ul>
+</ul>
 
 <h3> The Objective </h3>
 <ul>

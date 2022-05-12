@@ -1,6 +1,6 @@
 <h2>Teleco Data Analysis</h2>
 
-<h3> File and Folders </li>
+<h3> File and Folders </h3>
 <ul> 
 <li>**notebooks:** A folder that contains all the notebooks used to handle the specific objectives described below
 <ul>

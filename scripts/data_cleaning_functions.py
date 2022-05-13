@@ -159,3 +159,21 @@ class DataCleaner:
             df[col] = df[col]/megabyte
             df.rename(columns={col:col.replace(identifier,'(MB)')}, inplace=True)
         return df
+
+
+    def ms_to_s(self, df, identifier):
+        """
+        converting ms to s.
+        """
+        ms_list = []
+        second = 1000
+        temp = self.summar.summ_columns(df)
+        
+        for i in range(temp.shape[0]):
+            if(identifier in temp.iloc[i,0]):
+                ms_list.append(temp.iloc[i,0])
+        
+        for col in ms_list:
+            df[col] = df[col]/second
+            df.rename(columns={col:col.replace(identifier,'(S)')}, inplace=True)
+        return df

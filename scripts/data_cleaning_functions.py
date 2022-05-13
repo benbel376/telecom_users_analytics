@@ -11,6 +11,28 @@ class DataCleaner:
     def __init__(self) -> None:
         self.summar = DataSummarizer() 
 
+
+    def fill_outliers_mean(self, df, cols):
+        df_temp = df.copy(deep=True)
+        for col in cols:
+            ''' Detection '''
+            # IQR
+            Q1 = df_temp[col].quantile(0.25)
+
+            Q3 = df_temp[col].quantile(0.75)
+            IQR = Q3 - Q1
+
+            length=df_temp.shape[0]
+            for index in range(length):
+                if(df_temp.loc[index,col] >= (Q3+1.5*IQR)):
+                    df_temp.loc[index,col] = np.nan
+
+            ''' filling the Outliers '''
+            df_temp = self.fill_missing_by_mean(df_temp, cols)
+
+        return df_temp
+
+        
     def removeOutliers(self, df,cols):
         df_temp = df.copy(deep=True)
         for col in cols:
@@ -29,7 +51,7 @@ class DataCleaner:
             ''' Removing the Outliers '''
             df_temp.drop(rm_lis, inplace = True)
 
-            return df_temp
+        return df_temp
     
     def remove_cols(self, df, cols, keep=False):
         """
@@ -160,6 +182,7 @@ class DataCleaner:
             df.rename(columns={col:col.replace(identifier,'(MB)')}, inplace=True)
         return df
 
+    
 
     def ms_to_s(self, df, identifier):
         """

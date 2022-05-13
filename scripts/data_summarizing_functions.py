@@ -12,6 +12,11 @@ class DataSummarizer:
         pass
     
     
+    def calcScore(self, df, cent, features, title):
+        df[title] = df.apply(lambda df : np.linalg.norm(df[features] - cent), axis = 1)
+        return df 
+
+
     def show_N_per_col(self, df, main, cols, N, target="top"):
         """
         sorts a column and shows top 10 values.
@@ -40,6 +45,8 @@ class DataSummarizer:
         Distribution plotting function.
         """
         for index in range(len(cols)):
+            plt.style.use('fivethirtyeight')
+            plt.figure(figsize=(8, 4)) 
             sns.displot(data=df, x=cols[index], color=colors[index], kde=True, height=4, aspect=2)
             plt.title(f'Distribution of '+cols[index]+' data volume', size=20, fontweight='bold')
             plt.show()

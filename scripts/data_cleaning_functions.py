@@ -28,11 +28,11 @@ class DataCleaner:
                     df_temp.loc[index,col] = np.nan
 
             ''' filling the Outliers '''
-            df_temp = self.fill_missing_by_mean(df_temp, cols)
+            df_temp = self.fill_missing_by_median(df_temp, cols)
 
         return df_temp
 
-        
+
     def removeOutliers(self, df,cols):
         df_temp = df.copy(deep=True)
         for col in cols:
@@ -118,17 +118,21 @@ class DataCleaner:
         
         return df
 
-    def fill_missing_by_median(self, df):
+    def fill_missing_by_median(self, df, cols=None):
         """
         fills missing values by median.
         """
         temp = self.summar.summ_columns(df)
         median_fill_list = []
 
-        for i in range(temp.shape[0]):
-            if(temp.iloc[i,3] == "float64"):
-                median_fill_list.append(temp.iloc[i,0])
-                
+        if cols is None:
+            for i in range(temp.shape[0]):
+                if(temp.iloc[i,3] == "float64"):
+                    median_fill_list.append(temp.iloc[i,0])
+        else:
+            for col in cols:
+                median_fill_list.append(col)
+
         for col in median_fill_list:
             df[col] = df[col].fillna(df[col].median())
         return df

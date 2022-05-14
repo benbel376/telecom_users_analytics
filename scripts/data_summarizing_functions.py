@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import MinMaxScaler
 
 class DataSummarizer:
     """
@@ -13,6 +15,22 @@ class DataSummarizer:
     def __init__(self) -> None:
         pass
     
+
+    def generateModel(self, x, y):
+        """
+        a function that generates a regression model
+        """
+        # Creating regression model and fitting it
+
+        # creating an object of LinearRegression class
+        model = LinearRegression()
+
+        # fitting the training data
+        model.fit(x,y)
+        print("Model created Sucessfully.")
+        
+        return model
+
 
     def clusterGenerator(self, df, selected_features, num_clusters, clust_name):
         """
@@ -47,6 +65,9 @@ class DataSummarizer:
     
     def calcScore(self, df, cent, features, title):
         df[title] = df.apply(lambda df : np.linalg.norm(df[features] - cent), axis = 1)
+        df2 = df[title]
+        df_norm = ((df2-df2.min())/(df2.max()-df2.min()))*100
+        df[title] = df_norm
         return df 
 
 
@@ -58,7 +79,7 @@ class DataSummarizer:
         if(target == "bottom"):
             asc = True
         for col in cols:
-            print("\nTop 10 customers based on"+col+"\n")
+            print("\nTop 10 customers based on "+col+"\n")
             print(df.sort_values(by=col, ascending=asc).loc[:,[main, col]].head(N))
         
     

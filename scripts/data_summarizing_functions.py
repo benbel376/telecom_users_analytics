@@ -3,6 +3,8 @@ import numpy as np
 from pandasql import sqldf
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
 
 class DataSummarizer:
     """
@@ -11,6 +13,37 @@ class DataSummarizer:
     def __init__(self) -> None:
         pass
     
+
+    def clusterGenerator(self, df, selected_features, num_clusters, clust_name):
+        """
+        a function that generates a K means cluster value to rows.
+        """
+        selected_metrics = df[selected_features]
+
+        # Creating normalized dataframes
+
+        temp_arr = selected_metrics.loc[:, selected_features].values
+        temp_arr = StandardScaler().fit_transform(temp_arr) # normalizing the features
+
+        # Turning the temporary array of normalized values into a dataframe.
+
+        normal_df = pd.DataFrame(temp_arr,columns=selected_features)
+
+        # creating the clusters
+
+        kmeans = KMeans(num_clusters)
+        kmeans.fit(temp_arr)
+
+        # Generating cluster value to each row
+
+        identified_clusters = kmeans.fit_predict(temp_arr)
+        # Adding the generated array of cluster values to the dataframe as a column
+
+        data_with_clusters = df.copy()
+        data_with_clusters[clust_name] = identified_clusters 
+        
+        return normal_df, data_with_clusters, kmeans
+
     
     def calcScore(self, df, cent, features, title):
         df[title] = df.apply(lambda df : np.linalg.norm(df[features] - cent), axis = 1)
@@ -50,6 +83,8 @@ class DataSummarizer:
             sns.displot(data=df, x=cols[index], color=colors[index], kde=True, height=4, aspect=2)
             plt.title(f'Distribution of '+cols[index]+' data volume', size=20, fontweight='bold')
             plt.show()
+
+            
     def plot_box(self, df:pd.DataFrame, col:str)->None:
         """
         Boxplot plotting function.

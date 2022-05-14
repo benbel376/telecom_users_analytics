@@ -33,7 +33,22 @@ st.write(
   user_df
 )
 
-
-image = Image.open('./applications.jpg')
-
+st.subheader("Applications Data Usage")
+image = Image.open('./image/applications.jpg')
 st.image(image, caption='scatter plot of applications and total data volume')
+
+st.subheader("Top 3 Handset Manufacturers")
+image2 = Image.open('./image/top3.png')
+st.image(image2, caption='Top 3 Handset Manufacturers')
+
+st.subheader("Top 10 Handset Types")
+image3 = Image.open('./image/top10.png')
+st.image(image3, caption='Top 10 Handset Types')
+
+st.subheader("Engagement metrics Distribution")
+image4 = Image.open('./image/totdist.png')
+st.image(image4, caption='Distribution of engagement matrics: xdr, total data volume, session duration')
+
+st.subheader("Experience metrics Distribution")
+image5 = Image.open('./image/rttdist.png')
+st.image(image5, caption='Distribution of experience matrics: RTT, TP, TCP')

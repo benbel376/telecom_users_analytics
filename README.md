@@ -1,6 +1,5 @@
-# Teleco Data Analysis!
-
-[image](https://user-images.githubusercontent.com/44437166/182871420-bf7d70cb-e8f9-4973-ae8c-58ef7b8d1914.png)
+# Teleco Data Analysis
+![image](https://user-images.githubusercontent.com/44437166/182871420-bf7d70cb-e8f9-4973-ae8c-58ef7b8d1914.png)
 
 **Table of contents**
 

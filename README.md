@@ -1,4 +1,34 @@
-<h2>Teleco Data Analysis</h2>
+# Teleco Data Analysis!
+
+[image](https://user-images.githubusercontent.com/44437166/182871420-bf7d70cb-e8f9-4973-ae8c-58ef7b8d1914.png)
+
+**Table of contents**
+
+- [Overview](#overview)
+- [Requirements](#requirements)
+- [Install](#install)
+- [Data](#Data)
+- [Docs](#docs)
+- [Src](#src)
+- [Experiments](#experiments)
+- [Tests](#tests)
+
+## Overview
+
+<h3> The Objective </h3>
+<ul>
+<li>To analyse a telecommunication dataset that contains useful information about the customers & their activities on the network.</li>
+<li>To analyse opportunities for growth and make a recommendation on whether TellCo is worth buying or selling.</li>
+<li>To Deliver insights you managed to extract to your employer through an easy to use web based dashboard and a written report. </li>
+</ul>
+
+<h4> Specific Objectives </h4>
+<ol>
+<li>User Overview analysis </li>
+<li>User Engagement analysis </li>
+<li>User Experience analysis </li>
+<li>User Satisfaction analysis</li>
+</ol>
 
 <h3> File and Folders </h3>
 <ul> 
@@ -23,27 +53,65 @@
     <b>tests:</b> this folder contains a list of functions to test the scripts 
 </li>
 
-</ul>
-
-<h3> The Objective </h3>
-<ul>
-<li>To analyse a telecommunication dataset that contains useful information about the customers & their activities on the network.</li>
-<li>To analyse opportunities for growth and make a recommendation on whether TellCo is worth buying or selling.</li>
-<li>To Deliver insights you managed to extract to your employer through an easy to use web based dashboard and a written report. </li>
-</ul>
-
-<h4> Specific Objectives </h4>
-<ol>
-<li>User Overview analysis </li>
-<li>User Engagement analysis </li>
-<li>User Experience analysis </li>
-<li>User Satisfaction analysis</li>
-</ol>
-
-<h3> User Overview analysis</h3>
 
 
-Project in progress...
+
+
+## Data
+-  telecommunication dataset that contains useful information about the customers & their activities on the network. You will deliver insights you managed to extract to your employer through an easy to use web based dashboard and a written report. 
+
+
+- [**Source of data:**](https://docs.google.com/spreadsheets/d/1UXgtCVtB75-tkEfwGEV4pEw_uBcvXX3J/edit?usp=sharing&ouid=103241713684165615552&rtpof=true&sd=true)
+
+
+## Technology Used
+- Python Library
+  - pandas
+  - matplotlib
+  - numpy
+  - scikit-learn
+## Prerequistes
+
+- python 3.8
+
+## Install
+
+```
+git clone hhttps://github.com/benbel376/telecom_users_analytics.git
+cd LIDAR_ETL
+pip install -r docs/requirements.txt
+```
+or 
+```
+use this command: pip install -i https://test.pypi.org/simple/ pypointd==0.0.1
+```
+## Usage
+![image](https://user-images.githubusercontent.com/44437166/182873973-84da4eb6-b627-44a6-b800-f40cfe9f578a.png)
+![image](https://user-images.githubusercontent.com/44437166/182873998-9a33f850-65ef-430e-8699-82b0cf21597a.png)
+![image](https://user-images.githubusercontent.com/44437166/182874027-437f55fe-f011-43a7-a707-ac80b9a1f9ca.png)
+![image](https://user-images.githubusercontent.com/44437166/182874043-7d68ca64-6985-4e5e-8f3b-f3d903621e74.png)
+![image](https://user-images.githubusercontent.com/44437166/182874052-993a89b2-7d8f-481b-b833-0976064907c0.png)
+![image](https://user-images.githubusercontent.com/44437166/182874064-dc06162d-04dd-4307-8eb4-0bdce77a2108.png)
+
+
+## License
+- [MIT License](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiMqbrwqaz5AhVPiqQKHa5uCtkQFnoECAYQAQ&url=https%3A%2F%2Fopensource.org%2Flicenses%2FMIT&usg=AOvVaw1MsEPekvPKCIceu2jiRDy4)
+
+## Author
+
+👤 **Biniyam Belayneh**
+
+- GitHub: [Biniyam Belayneh](https://github.com/benbel376)
+- LinkedIn: [Biniyam Belayneh](https://www.linkedin.com/in/biniyam-belayneh-demisse-42909617a/)
+## Acknowledgement
+- Thank you [10 academy](https://www.10academy.org/) for the project idea and resource provision
+- Thank you [python tutorials](https://packaging.python.org/tutorials/packaging-projects/) for awsome blog posts on data engineering
+- Thank you [LIDAR HIgh definition elevation data](https://registry.opendata.aws/usgs-lidar/). for data source
+## Show your support
+
+Give a ⭐ if you like this project!
+
+
 
 
 
